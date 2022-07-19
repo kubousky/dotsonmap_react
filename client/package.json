@@ -11,6 +11,7 @@
     "@types/node": "^16.11.43",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
+    "cookie": "^0.5.0",
     "http-proxy-middleware": "^2.0.6",
     "mdb-react-ui-kit": "^4.1.0",
     "react": "^18.2.0",

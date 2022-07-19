@@ -2,8 +2,10 @@ import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/user'
 
+
 export const Navbar = () => {
     const { isAuthenticated } = useSelector(selectUser)
+
 
     const authLinks = (
         <>

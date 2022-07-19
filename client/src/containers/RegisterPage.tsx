@@ -40,7 +40,7 @@ const RegisterPage = () => {
   }
     if(name && email && password) {
       dispatch(register({email, password, name}));
-      toast.success("User Login Succesfully");
+      // toast.success("User Login Succesfully");
     } else {
       toast.error("Please fill all Input field")
   }
