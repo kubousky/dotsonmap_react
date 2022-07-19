@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
+const logoutRoute = require('./routes/logout');
 const meRoute = require('./routes/me');
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cookieParser());
 
 app.use(registerRoute);
 app.use(loginRoute);
+app.use(logoutRoute);
 app.use(meRoute);
 
 app.use(express.static('client/build'));

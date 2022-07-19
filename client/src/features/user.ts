@@ -2,8 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit';
 import {RootState} from "../store"
 
-
-
 interface UserState {
   isAuthenticated: boolean,
   user: null,
@@ -45,7 +43,7 @@ export const register = createAsyncThunk('user/create', async ({email, password,
   }
 });
 
-const getUser =  createAsyncThunk('/user/me', async (_, thunkAPI) => {
+export const getUser =  createAsyncThunk('/user/me', async (_, thunkAPI) => {
   try {
     const res = await fetch('/api/user/me/', {
       method: 'GET',
@@ -84,19 +82,39 @@ export const login = createAsyncThunk('user/login', async ({email, password}:{em
 
     if (res.status === 200) {
       const { dispatch } = thunkAPI;
-
       dispatch(getUser());
-
       return data;
 
     } else {
-
       return thunkAPI.rejectWithValue(data);
     }
       
   } catch(err: any) {
-
     return thunkAPI.rejectWithValue(err.response.data);
+  }
+});
+
+export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
+
+  try {
+    const res = await fetch('/api/user/logout/', {
+      method: 'GET',
+      headers: {
+          Accept: 'application/json'
+      }
+    })
+
+    const data = await res.json();
+
+    if (res.status === 200) {
+        return data;
+
+    } else {
+        return thunkAPI.rejectWithValue(data);
+    }
+      
+  } catch(err: any) {
+      return thunkAPI.rejectWithValue(err.response.data);
   }
 });
 
@@ -138,6 +156,17 @@ const userSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(getUser.rejected, state => {
+        state.loading = false;
+      })
+      .addCase(logout.pending, state => {
+        state.loading = true;
+      })
+      .addCase(logout.fulfilled, state => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+      })
+      .addCase(logout.rejected, state => {
         state.loading = false;
       })
   }
