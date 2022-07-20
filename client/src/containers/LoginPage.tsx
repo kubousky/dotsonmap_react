@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { resetRegistered, login, selectUser } from '../features/user';
+import { resetRegistered, login, selectUser } from '../features/auth';
 import { toast } from 'react-toastify';
 
 const initialState = {

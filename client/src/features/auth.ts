@@ -2,9 +2,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit';
 import {RootState} from "../store"
 
-interface UserState {
+
+export interface UserState {
   isAuthenticated: boolean,
-  user: null,
+  user: {
+    name: string,
+    email: string,
+    password: string,
+  } | null,
   loading: boolean,
   registered: boolean
 }
@@ -119,7 +124,7 @@ export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 });
 
 const userSlice = createSlice({
-  name: 'user',
+  name: 'auth',
   initialState,
   reducers: {
     resetRegistered(state) {
@@ -171,6 +176,6 @@ const userSlice = createSlice({
       })
   }
 })
-export const selectUser = (state: RootState) => state.user;
+export const selectUser = (state: RootState) => state.auth;
 export const { resetRegistered } = userSlice.actions
 export default userSlice.reducer
