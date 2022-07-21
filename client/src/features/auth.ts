@@ -7,8 +7,7 @@ export interface UserState {
   isAuthenticated: boolean,
   user: {
     name: string,
-    email: string,
-    password: string,
+    email: string
   } | null,
   loading: boolean,
   registered: boolean
@@ -156,7 +155,7 @@ const userSlice = createSlice({
       .addCase(getUser.pending, state => {
         state.loading = true;
       })
-      .addCase(getUser.fulfilled, (state, action: PayloadAction<any>) => {
+      .addCase(getUser.fulfilled, (state, action: PayloadAction<{name: string, email: string}>) => {
         state.loading = false;
         state.user = action.payload;
       })
