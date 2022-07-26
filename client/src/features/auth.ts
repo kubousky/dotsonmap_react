@@ -73,7 +73,7 @@ export const login = createAsyncThunk('user/login', async ({email, password}:{em
   const body = JSON.stringify({email, password})
 
   try {
-    const res = await fetch('/api/user/token/', {
+    const res = await fetch('/api/token/', {
       method: 'POST',
       headers: {
           Accept: 'application/json',
@@ -97,6 +97,31 @@ export const login = createAsyncThunk('user/login', async ({email, password}:{em
     return thunkAPI.rejectWithValue(err.response.data);
   }
 });
+
+export const checkAuth = createAsyncThunk('user/verify', async (_, thunkAPI) => {
+  try {
+    const res = await fetch('/api/user/verify', {
+      method: 'GET',
+      headers: {
+          Accept: 'application/json',
+      },
+    })
+
+    const data = await res.json();
+
+    if (res.status === 200) {
+      const { dispatch } = thunkAPI;
+      dispatch(getUser());
+      return data;
+
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+      
+  } catch(err: any) {
+    return thunkAPI.rejectWithValue(err.response.data);
+  }
+})
 
 export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 
@@ -160,6 +185,16 @@ const userSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(getUser.rejected, state => {
+        state.loading = false;
+      })
+      .addCase(checkAuth.pending, state => {
+        state.loading = true
+      })
+      .addCase(checkAuth.fulfilled, state => {
+        state.loading = false;
+        state.isAuthenticated = true;
+      })
+      .addCase(checkAuth.rejected, state => {
         state.loading = false;
       })
       .addCase(logout.pending, state => {

@@ -13,19 +13,18 @@ const initialState = {
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
+  const {isAuthenticated, loading, registered} = useAppSelector(selectUser);
 
   useEffect(() => {
-    dispatch(resetRegistered());
-  }, []);
+    if (registered) 
+      dispatch(resetRegistered());
+  }, [registered]);
 
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initialState);
 
   const {email, password} = formData;
-
-  const {isAuthenticated, loading} = useAppSelector(selectUser);
-
 
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value})

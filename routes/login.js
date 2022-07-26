@@ -6,7 +6,7 @@ const fetch = (...args) =>
 
 const router = express.Router();
 
-router.post('/api/user/token', async (req, res) => {
+router.post('/api/token', async (req, res) => {
     const { email, password } = req.body;
 
     const body = JSON.stringify({
@@ -15,7 +15,7 @@ router.post('/api/user/token', async (req, res) => {
     });
 
     try {
-        const apiRes = await fetch(`${process.env.API_URL}/api/user/token/`, {
+        const apiRes = await fetch(`${process.env.API_URL}/api/token/`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -29,20 +29,20 @@ router.post('/api/user/token', async (req, res) => {
     if (apiRes.status === 200){
 
         res.setHeader('Set-Cookie', [
-            cookie.serialize('token', data.token, {
+            cookie.serialize('access', data.access, {
                 httpOnly: true,
                 maxAge: 60 * 30,
                 path: '/api/',
                 sameSite: 'strict',
                 secure: process.env.NODE_ENV === 'production'
             }),
-            // cookie.serialize('refresh', data.access, {
-            //     httpOnly: true,
-            //     maxAge: 60 * 30,
-            //     path: '/api/',
-            //     sameSite: 'strict',
-            //     secure: process.env.NODE_ENV === 'production'
-            // }),        
+            cookie.serialize('refresh', data.refresh, {
+                httpOnly: true,
+                maxAge: 60 * 60 * 24,
+                path: '/api/',
+                sameSite: 'strict',
+                secure: process.env.NODE_ENV === 'production'
+            }),        
         ]);
 
         return res.status(200).json({ success: 'Logged in successfully'});

@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { Provider } from "react-redux"; 
+import { useAppDispatch, useAppSelector } from './hooks';
+import { checkAuth } from './features/auth';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import DashboardPage from "./containers/DashboardPage";
@@ -7,11 +9,16 @@ import Homepage from "./containers/Homepage";
 import LoginPage from "./containers/LoginPage";
 import RegisterPage from "./containers/RegisterPage";
 
-import { store } from "./store";
+
 
 const App = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, []);
+
   return (
-    <Provider store={store}>
       <Router>
       <ToastContainer/>
         <Routes>
@@ -21,7 +28,6 @@ const App = () => {
           <Route path='/register' element={<RegisterPage />} />
         </Routes>
       </Router>
-    </Provider>
 )}
 
 export default App;
