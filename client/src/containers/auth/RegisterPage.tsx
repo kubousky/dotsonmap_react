@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { register, selectUser } from '../features/auth';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { register, selectUser } from '../../features/auth';
 
 const initialState = {
   name: "",

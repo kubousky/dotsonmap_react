@@ -27,6 +27,9 @@ router.post('/api/user/create', async (req, res) => {
 
         return res.status(apiRes.status).json(data);
     } catch (err) {
+        
+        console.log("error, register.js");
+        console.log("res: ", res);
         return res.status(500).json({
             error: 'Something went wrong when registering account',
         });

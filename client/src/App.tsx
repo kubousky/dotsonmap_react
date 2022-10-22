@@ -6,8 +6,8 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import DashboardPage from "./containers/DashboardPage";
 import Homepage from "./containers/Homepage";
-import LoginPage from "./containers/LoginPage";
-import RegisterPage from "./containers/RegisterPage";
+import LoginPage from "./containers/auth/LoginPage";
+import RegisterPage from "./containers/auth/RegisterPage";
 
 
 

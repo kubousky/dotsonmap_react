@@ -36,13 +36,14 @@ router.post('/api/token', async (req, res) => {
                 sameSite: 'strict',
                 secure: process.env.NODE_ENV === 'production'
             }),
-            cookie.serialize('refresh', data.refresh, {
-                httpOnly: true,
-                maxAge: 60 * 60 * 24,
-                path: '/api/',
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV === 'production'
-            }),        
+            //NOT USED in REACT
+            // cookie.serialize('refresh', data.refresh, {
+            //     httpOnly: true,
+            //     maxAge: 60 * 60 * 24,
+            //     path: '/api/',
+            //     sameSite: 'strict',
+            //     secure: process.env.NODE_ENV === 'production'
+            // }),        
         ]);
 
         return res.status(200).json({ success: 'Logged in successfully'});

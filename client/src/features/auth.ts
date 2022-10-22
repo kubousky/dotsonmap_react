@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit';
-import {RootState} from "../store"
+import {RootState} from "../store";
+import { toast } from 'react-toastify';
 
 
 export interface UserState {
@@ -39,6 +40,13 @@ export const register = createAsyncThunk('user/create', async ({email, password,
     if (res.status === 201) {
       return data;
     } else {
+
+      if ("email" in data){
+        toast.error(data.email[0].charAt(0).toUpperCase() + data.email[0].slice(1));
+      }
+      if ("password" in data) {
+        toast.error("Password: " + data.password[0].charAt(0).toLowerCase() + data.password[0].slice(1));
+      }  
       return thunkAPI.rejectWithValue(data);
     }
       
@@ -90,6 +98,9 @@ export const login = createAsyncThunk('user/login', async ({email, password}:{em
       return data;
 
     } else {
+      if ("email" in data){
+        toast.error(data.email[0].charAt(0).toUpperCase() + data.email[0].slice(1));
+      }
       return thunkAPI.rejectWithValue(data);
     }
       

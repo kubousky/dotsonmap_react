@@ -1,5 +1,6 @@
 import Layout from '../components/Layout';
-import { useSelector} from 'react-redux';
+import Map from './Map';
+// import MapboxMap from './Mapbox';
 import { useAppSelector } from '../hooks';
 import { logout, selectUser } from '../features/auth';
 
@@ -10,7 +11,8 @@ const DashboardPage = () => {
   return (
     
     <Layout>
-      <div>DashboardPage</div>
+        <Map />
+        {/* <MapboxMap /> */}
     </Layout>
   )
 }

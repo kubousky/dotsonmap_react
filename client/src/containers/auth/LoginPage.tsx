@@ -1,9 +1,9 @@
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 import { useEffect } from 'react';
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { resetRegistered, login, selectUser } from '../features/auth';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { resetRegistered, login, selectUser } from '../../features/auth';
 import { toast } from 'react-toastify';
 
 const initialState = {
@@ -43,7 +43,7 @@ const LoginPage = () => {
 
   return (
     <Layout>
-      <section className="vh-100 gradient-custom">
+      <section className="vh-100">
           <div className="container py-4 h-100">
               <div className="row d-flex justify-content-center align-items-center h-100">
                   <div className="col-12 col-md-8 col-lg-6 col-xl-5">
